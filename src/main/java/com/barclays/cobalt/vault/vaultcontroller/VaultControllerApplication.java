@@ -1,5 +1,6 @@
 package com.barclays.cobalt.vault.vaultcontroller;
 
+import com.barclays.cobalt.vault.vaultcontroller.config.VaultConfiguration;
 import com.barclays.cobalt.vault.vaultcontroller.domain.TokenGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,7 +15,7 @@ public class VaultControllerApplication {
 	}
 
 	@Bean
-	public TokenGenerator tokenGenerator(RestTemplateBuilder builder) {
-		return new TokenGenerator(builder);
+	public TokenGenerator tokenGenerator(RestTemplateBuilder builder, VaultConfiguration configuration) {
+		return new TokenGenerator(builder, configuration);
 	}
 }
