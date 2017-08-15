@@ -1,25 +1,37 @@
 package com.barclays.cobalt.vault.vaultcontroller.config;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.web.util.UriComponentsBuilder;
 
-@Configuration
+import javax.validation.constraints.NotNull;
+
+@ConfigurationProperties(prefix = "vault")
+@Data
 public class VaultConfiguration {
-  @Value("${vault.host}")
-  private String vaultHost;
-  @Value("${vault.port}")
-  private Integer vaultPort;
-  @Value("${vault.http.scheme:http}")
-  private String vaultHttpScheme;
+  @NotNull
+  private String host;
+  @NotNull
+  private Integer port;
+  private String scheme = "https";
+  private String version = "v1";
+  @NotNull
+    private String rootToken;
+  @NotNull
+  private Long wrapTtlInSeconds;
 
 
-  public String vaultAPIEndpoint() {
+  public String tokenEndpoint() {
     return UriComponentsBuilder.newInstance()
-        .host(vaultHost)
-        .port(vaultPort)
-        .scheme(vaultHttpScheme)
-        .path("v1")
+        .host(host)
+        .port(port)
+        .scheme(scheme)
+        .path(version)
+        .path("/auth/token/create")
         .build().toUriString();
+  }
+
+  public String getWrapTtl() {
+    return wrapTtlInSeconds + "s";
   }
 }

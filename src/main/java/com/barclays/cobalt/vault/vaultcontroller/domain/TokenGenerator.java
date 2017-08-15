@@ -2,43 +2,29 @@ package com.barclays.cobalt.vault.vaultcontroller.domain;
 
 import com.barclays.cobalt.vault.vaultcontroller.config.VaultConfiguration;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Collections;
-import java.util.HashMap;
 
 public class TokenGenerator {
 
   private final RestTemplate http;
-  private String vaultBaseUrl;
-  private VaultConfiguration configuration;
+  private final VaultConfiguration configuration;
 
   public TokenGenerator(RestTemplateBuilder builder, VaultConfiguration configuration) {
-    this.configuration = configuration;
     this.http = builder
-        .additionalInterceptors(new VaultHttpRequestInterceptor())
-        .rootUri(configuration.vaultAPIEndpoint()).build();
+        .additionalInterceptors(new VaultHttpRequestInterceptor(configuration)).build();
+    this.configuration = configuration;
   }
 
-  public void generateToken() {
+  public VaultWrappedResponse generateToken(String namespace, String podName, String... policies) {
 
-    TokenRequest request = TokenRequest.builder()
-        .policies(Collections.singletonList("default"))
-        .meta(new HashMap<String, String>() {{
-          put("namespace", "4299");
-        }})
-        .displayName("client")
-        .noParent(true)
-        .ttl(43200L)
-        .renewable(false)
-        .numUses(1)
+    VaultTokenRequest request = VaultTokenRequest.builder()
+        .withPolicies(policies)
+        .withMeta("namespace", namespace)
+        .displayName(podName)
+        .ttl(configuration.getWrapTtlInSeconds())
         .build();
 
-
-    ResponseEntity<WrappedResponse> wrappedToken = http.postForEntity("/auth/token/create", request, WrappedResponse.class);
-
-    System.out.println(wrappedToken.getBody());
+    return http.postForObject(configuration.tokenEndpoint(), request, VaultWrappedResponse.class);
   }
 
 }
