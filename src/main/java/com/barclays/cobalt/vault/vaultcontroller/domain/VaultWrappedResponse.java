@@ -1,6 +1,5 @@
 package com.barclays.cobalt.vault.vaultcontroller.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +8,6 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @Builder
-@ToString
 public class VaultWrappedResponse {
 
   private WrapInfo wrapInfo;
@@ -17,7 +15,7 @@ public class VaultWrappedResponse {
   @Data
   @AllArgsConstructor
   @Builder
-  private static class WrapInfo {
+  public static class WrapInfo {
 
     private String token;
     private String wrappedAccessor;

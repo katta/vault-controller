@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 @ConfigurationProperties(prefix = "vault")
 @Data
-public class VaultConfiguration {
+public class VaultProperties {
   @NotNull
   private String host;
   @NotNull

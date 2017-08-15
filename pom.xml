@@ -22,6 +22,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>1.8</java.version>
+    <openshift-restclient-java.version>5.9.0.Final</openshift-restclient-java.version>
   </properties>
 
   <dependencies>
@@ -42,8 +43,20 @@
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.openshift</groupId>
+      <artifactId>openshift-restclient-java</artifactId>
+      <version>${openshift-restclient-java.version}</version>
     </dependency>
 
   </dependencies>

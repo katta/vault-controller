@@ -1,6 +1,6 @@
 package com.barclays.cobalt.vault.vaultcontroller.domain;
 
-import com.barclays.cobalt.vault.vaultcontroller.config.VaultConfiguration;
+import com.barclays.cobalt.vault.vaultcontroller.config.VaultProperties;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
@@ -13,9 +13,9 @@ class VaultHttpRequestInterceptor implements ClientHttpRequestInterceptor {
   static final String TOKEN_HEADER = "X-Vault-Token";
   static final String WRAP_RESPONSE_TTL_HEADER = "X-Vault-Wrap-TTL";
 
-  private final VaultConfiguration configuration;
+  private final VaultProperties configuration;
 
-  public VaultHttpRequestInterceptor(VaultConfiguration configuration) {
+  public VaultHttpRequestInterceptor(VaultProperties configuration) {
     this.configuration = configuration;
   }
 
