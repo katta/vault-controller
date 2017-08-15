@@ -2,8 +2,10 @@ package com.barclays.cobalt.vault.vaultcontroller.domain;
 
 import com.barclays.cobalt.vault.vaultcontroller.config.VaultProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+@Component
 public class TokenGenerator {
 
   private final RestTemplate http;

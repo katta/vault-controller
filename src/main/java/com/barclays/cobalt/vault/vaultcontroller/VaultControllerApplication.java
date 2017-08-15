@@ -18,13 +18,15 @@ public class VaultControllerApplication {
 		SpringApplication.run(VaultControllerApplication.class, args);
 	}
 
+/*
 	@Bean
 	public TokenGenerator tokenGenerator(RestTemplateBuilder builder, VaultProperties configuration) {
 		return new TokenGenerator(builder, configuration);
 	}
+*/
 
-	@Bean
-	public PodCallbackClient podCallbackClient(RestTemplateBuilder builder) {
-		return new PodCallbackClient(builder);
-	}
+//	@Bean
+//	public PodCallbackClient podCallbackClient(RestTemplateBuilder builder) {
+//		return new PodCallbackClient(builder);
+//	}
 }
