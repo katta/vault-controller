@@ -12,6 +12,7 @@ import static com.openshift.restclient.ResourceKind.POD;
 public class OpenshiftClient {
 
   private final IClient client;
+  private OpenshiftProperties properties;
 
   private static final Logger LOGGER = LoggerFactory.getLogger(OpenshiftClient.class);
 
@@ -20,11 +21,12 @@ public class OpenshiftClient {
         .sslCertCallbackWithDefaultHostnameVerifier(properties.isVerifySslHostName())
         .usingToken(properties.getAuthToken())
         .build();
+    this.properties = properties;
   }
 
   public PodMetadata findPod(final String namespace, final String podName) {
     IPod pod = client.get(POD, podName, namespace);
     LOGGER.info("Retrieved metadata for pod: {} in namespace: {}", podName, namespace);
-    return PodMetadata.from(pod);
+    return PodMetadata.from(pod, properties.getInitContainerPort());
   }
 }

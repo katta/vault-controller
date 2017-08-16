@@ -1,6 +1,6 @@
-package com.barclays.cobalt.vault.vaultcontroller.web;
+package com.barclays.cobalt.vault.vaultcontroller.api;
 
-import com.barclays.cobalt.vault.vaultcontroller.domain.TokenGenerator;
+import com.barclays.cobalt.vault.vaultcontroller.service.TokenService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +9,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -20,14 +22,19 @@ public class TokenControllerTest {
   private MockMvc mvc;
 
   @MockBean
-  private TokenGenerator tokenGenerator;
+  private TokenService tokenService;
 
   @Test
   public void shouldGenerateToken() throws Exception {
+    String namespace = "my-namespace";
+    String podName = "my-awesome-pod";
+
     mvc.perform(post("/token")
-        .param("namespace", "4299")
-        .param("podName", "init-container"))
+        .param("namespace", namespace)
+        .param("podName", podName))
         .andExpect(status().isCreated());
+
+    verify(tokenService).generateTokenForPod(namespace, podName);
   }
 
   @Test
@@ -35,6 +42,8 @@ public class TokenControllerTest {
     mvc.perform(post("/token")
         .param("namespace", "4299"))
         .andExpect(status().isBadRequest());
+
+    verifyZeroInteractions(tokenService);
   }
 
   @Test
@@ -42,5 +51,7 @@ public class TokenControllerTest {
     mvc.perform(post("/token")
         .param("podName", "init-container"))
         .andExpect(status().isBadRequest());
+
+    verifyZeroInteractions(tokenService);
   }
 }

@@ -1,11 +1,14 @@
 package com.barclays.cobalt.vault.vaultcontroller.domain;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.client.MockRestServiceServer;
+import org.springframework.web.client.RestTemplate;
 
 import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.http.HttpStatus.CREATED;
@@ -21,7 +24,14 @@ public class PodCallbackClientTest {
   private MockRestServiceServer server;
 
   @Autowired
+  private RestTemplateBuilder builder;
+
   private PodCallbackClient podCallbackClient;
+
+  @Before
+  public void setUp() throws Exception {
+    podCallbackClient = new PodCallbackClient(builder);
+  }
 
   @Test
   public void shouldGeneratedWrappedResponseForTokenCreationInVault() {

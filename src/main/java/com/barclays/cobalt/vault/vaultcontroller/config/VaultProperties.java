@@ -2,12 +2,14 @@ package com.barclays.cobalt.vault.vaultcontroller.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.constraints.NotNull;
 
 @ConfigurationProperties(prefix = "vault")
 @Data
+@Validated
 public class VaultProperties {
   @NotNull
   private String host;

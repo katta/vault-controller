@@ -2,10 +2,10 @@ package com.barclays.cobalt.vault.vaultcontroller.domain;
 
 import com.barclays.cobalt.vault.vaultcontroller.config.VaultProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-@Component
+import java.util.Set;
+
 public class TokenGenerator {
 
   private final RestTemplate http;
@@ -17,7 +17,11 @@ public class TokenGenerator {
     this.configuration = configuration;
   }
 
-  public VaultWrappedResponse generateToken(String namespace, String podName, String... policies) {
+  public VaultWrappedResponse generateToken(String namespace, String podName, Set<String> policies) {
+    return generateToken(namespace, podName, policies.toArray(new String[policies.size()]));
+  }
+
+    public VaultWrappedResponse generateToken(String namespace, String podName, String... policies) {
 
     VaultTokenRequest request = VaultTokenRequest.builder()
         .withPolicies(policies)
