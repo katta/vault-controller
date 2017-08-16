@@ -9,7 +9,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.constraints.NotNull;
 
-@ConfigurationProperties(prefix = "openshift")
+@ConfigurationProperties(prefix = "vaultcontroller.openshift")
 @Data
 @Validated
 public class OpenshiftProperties {

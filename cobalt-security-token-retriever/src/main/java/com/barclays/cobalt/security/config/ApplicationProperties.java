@@ -5,7 +5,10 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
-@ConfigurationProperties(prefix = "cobalt.token.retriever")
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+@ConfigurationProperties(prefix = "token-retriever")
 @Data
 @Validated
 public class ApplicationProperties {
@@ -15,5 +18,11 @@ public class ApplicationProperties {
   private String podNamespace;
   @NotBlank
   private String podName;
+  @NotBlank
+  private String tokenPath;
+
+  public Path tokenPath() {
+    return Paths.get(tokenPath);
+  }
 
 }

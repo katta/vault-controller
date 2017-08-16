@@ -28,8 +28,8 @@ public class TokenService {
     VaultWrappedResponse response = tokenGenerator.generateToken(namespace, podName, pod.getPolicies());
 
     logger.info("Invoking callback to init-container in pod '{}' at '{}'", pod.getPodName(), pod.getCallbackUri());
+    logger.info("Wrapped Response : {}", response.getWrapInfo());
     podCallbackClient.writeToken(pod.getCallbackUri(), response.getWrapInfo());
-
     logger.info("Successfully invoked callback uri at '{}' for pod", pod.getCallbackUri(), pod.getPodName());
   }
 }

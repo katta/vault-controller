@@ -7,12 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-public class StartupTask implements CommandLineRunner {
+public class RetrieveTokenTask implements CommandLineRunner {
 
   private final RestTemplate http;
   private final ApplicationProperties properties;
 
-  public StartupTask(RestTemplateBuilder builder, ApplicationProperties properties) {
+  public RetrieveTokenTask(RestTemplateBuilder builder, ApplicationProperties properties) {
     this.properties = properties;
     this.http = builder
         .rootUri(properties.getVaultControllerBaseUri())
@@ -21,7 +21,6 @@ public class StartupTask implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-
     String tokenEndpoint = UriComponentsBuilder.fromPath("/token")
         .queryParam("podNamespace", properties.getPodNamespace())
         .queryParam("podName", properties.getPodName())

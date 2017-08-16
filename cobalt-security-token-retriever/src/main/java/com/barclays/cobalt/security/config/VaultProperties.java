@@ -1,4 +1,4 @@
-package com.barclays.cobalt.vaultcontroller.config;
+package com.barclays.cobalt.security.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -6,8 +6,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.constraints.NotNull;
+import java.net.URI;
 
-@ConfigurationProperties(prefix = "vaultcontroller.vault")
+@ConfigurationProperties(prefix = "token-retriever.vault")
 @Data
 @Validated
 public class VaultProperties {
@@ -17,23 +18,16 @@ public class VaultProperties {
   private Integer port;
   private String scheme = "https";
   private String version = "v1";
-  @NotNull
-    private String rootToken;
-  @NotNull
-  private Long wrapTtlInSeconds;
 
 
-  public String tokenEndpoint() {
+  public URI unwrapEndpoint() {
     return UriComponentsBuilder.newInstance()
         .host(host)
         .port(port)
         .scheme(scheme)
         .path(version)
-        .path("/auth/token/create")
-        .build().toUriString();
-  }
-
-  public String getWrapTtl() {
-    return wrapTtlInSeconds + "s";
+        .path("/sys/wrapping/unwrap")
+        .build().toUri();
   }
 }
+

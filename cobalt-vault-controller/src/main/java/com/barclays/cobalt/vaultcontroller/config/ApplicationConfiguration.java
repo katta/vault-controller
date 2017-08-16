@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class VaultControllerConfiguration {
+public class ApplicationConfiguration {
   @Bean
   public TokenGenerator tokenGenerator(RestTemplateBuilder builder, VaultProperties configuration) {
     return new TokenGenerator(builder, configuration);
