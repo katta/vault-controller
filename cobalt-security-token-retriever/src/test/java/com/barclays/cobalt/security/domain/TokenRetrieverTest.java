@@ -1,7 +1,5 @@
 package com.barclays.cobalt.security.domain;
 
-import com.barclays.cobalt.security.config.ApplicationProperties;
-import com.barclays.cobalt.security.config.VaultProperties;
 import org.assertj.core.util.Files;
 import org.junit.Before;
 import org.junit.Test;

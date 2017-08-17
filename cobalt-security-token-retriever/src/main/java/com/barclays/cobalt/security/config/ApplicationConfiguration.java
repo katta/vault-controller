@@ -17,8 +17,8 @@ public class ApplicationConfiguration {
   }
 
   @Bean
-  public TokenRetriever tokenRetriever(RestTemplateBuilder builder, VaultProperties vaultProperties, ApplicationProperties applicationProperties) {
-    return new TokenRetriever(builder, vaultProperties.unwrapEndpoint(), applicationProperties.tokenPath());
+  public TokenRetriever tokenRetriever(RestTemplateBuilder builder, ApplicationProperties properties) {
+    return new TokenRetriever(builder, properties.getVault().unwrapEndpoint(), properties.tokenPath());
   }
 
 }
