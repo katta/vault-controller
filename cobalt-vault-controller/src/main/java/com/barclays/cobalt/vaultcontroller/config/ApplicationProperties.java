@@ -15,10 +15,10 @@ import javax.validation.constraints.NotNull;
 @Validated
 public class ApplicationProperties {
   @Valid
-  private OpenshiftProperties openshift = new OpenshiftProperties();
+  private OpenshiftProperties openshift;
 
   @Valid
-  private VaultProperties vault = new VaultProperties();
+  private VaultProperties vault;
 
 
   @Data

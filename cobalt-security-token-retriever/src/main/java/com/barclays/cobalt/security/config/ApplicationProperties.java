@@ -26,7 +26,7 @@ public class ApplicationProperties {
   private String tokenPath;
 
   @Valid
-  private VaultProperties vault = new VaultProperties();
+  private VaultProperties vault;
 
 
   public Path tokenPath() {
