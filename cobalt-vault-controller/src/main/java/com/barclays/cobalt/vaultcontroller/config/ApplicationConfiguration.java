@@ -11,8 +11,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ApplicationConfiguration {
   @Bean
-  public TokenGenerator tokenGenerator(RestTemplateBuilder builder, VaultProperties configuration) {
-    return new TokenGenerator(builder, configuration);
+  public TokenGenerator tokenGenerator(RestTemplateBuilder builder, ApplicationProperties properties) {
+    return new TokenGenerator(builder, properties.getVault());
   }
 
   @Bean
@@ -21,8 +21,8 @@ public class ApplicationConfiguration {
   }
 
   @Bean
-  public OpenshiftClient openshiftClient(OpenshiftProperties openshiftProperties) {
-    return new OpenshiftClient(openshiftProperties);
+  public OpenshiftClient openshiftClient(ApplicationProperties properties) {
+    return new OpenshiftClient(properties.getOpenshift());
   }
 
   @Bean

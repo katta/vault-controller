@@ -1,6 +1,6 @@
 package com.barclays.cobalt.vaultcontroller.domain;
 
-import com.barclays.cobalt.vaultcontroller.config.VaultProperties;
+import com.barclays.cobalt.vaultcontroller.config.ApplicationProperties.VaultProperties;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;

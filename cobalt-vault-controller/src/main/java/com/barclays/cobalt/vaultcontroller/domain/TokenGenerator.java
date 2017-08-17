@@ -1,6 +1,6 @@
 package com.barclays.cobalt.vaultcontroller.domain;
 
-import com.barclays.cobalt.vaultcontroller.config.VaultProperties;
+import com.barclays.cobalt.vaultcontroller.config.ApplicationProperties.VaultProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.web.client.RestTemplate;
 

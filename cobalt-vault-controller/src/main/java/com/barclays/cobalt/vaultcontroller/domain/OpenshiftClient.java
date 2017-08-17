@@ -1,6 +1,6 @@
 package com.barclays.cobalt.vaultcontroller.domain;
 
-import com.barclays.cobalt.vaultcontroller.config.OpenshiftProperties;
+import com.barclays.cobalt.vaultcontroller.config.ApplicationProperties.OpenshiftProperties;
 import com.openshift.restclient.ClientBuilder;
 import com.openshift.restclient.IClient;
 import com.openshift.restclient.model.IPod;
