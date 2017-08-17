@@ -1,5 +1,6 @@
 package com.barclays.cobalt.vaultcontroller.domain;
 
+import com.barclays.cobalt.vaultcontroller.service.PodCallbackClient;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

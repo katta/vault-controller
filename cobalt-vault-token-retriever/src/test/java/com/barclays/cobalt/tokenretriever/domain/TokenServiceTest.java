@@ -1,5 +1,8 @@
 package com.barclays.cobalt.tokenretriever.domain;
 
+import com.barclays.cobalt.tokenretriever.config.ApplicationProperties;
+import com.barclays.cobalt.tokenretriever.service.ShutdownService;
+import com.barclays.cobalt.tokenretriever.service.TokenService;
 import org.assertj.core.util.Files;
 import org.junit.Before;
 import org.junit.Test;
@@ -7,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -19,14 +23,17 @@ import java.net.URI;
 import java.nio.charset.Charset;
 import java.nio.file.Paths;
 
-import static com.barclays.cobalt.tokenretriever.domain.TokenRetriever.VAULT_TOKEN_HEADER;
+import static com.barclays.cobalt.tokenretriever.service.TokenService.VAULT_TOKEN_HEADER;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Answers.RETURNS_DEEP_STUBS;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 @RunWith(SpringRunner.class)
-@RestClientTest(TokenRetriever.class)
-public class TokenRetrieverTest {
+@RestClientTest(TokenService.class)
+public class TokenServiceTest {
 
   private static final URI UNWRAP_ENDPOINT = URI.create("http://localhost:8200/v1/sys/wrapping/unwrap");
   @Autowired
@@ -38,13 +45,21 @@ public class TokenRetrieverTest {
   @Value("classpath:token-response.json")
   private Resource body;
 
-  private TokenRetriever tokenRetriever;
+  @MockBean(answer = RETURNS_DEEP_STUBS)
+  private ApplicationProperties properties;
+
+  @MockBean
+  private ShutdownService shutdown;
+
+  private TokenService tokenRetriever;
   private File tokenFile;
 
   @Before
   public void setUp() throws Exception {
     tokenFile = Files.newTemporaryFile();
-    tokenRetriever = new TokenRetriever(builder, UNWRAP_ENDPOINT, Paths.get(tokenFile.toURI()));
+    given(properties.tokenPath()).willReturn(Paths.get(tokenFile.toURI()));
+    given(properties.getVault().unwrapEndpoint()).willReturn(UNWRAP_ENDPOINT);
+    tokenRetriever = new TokenService(builder, shutdown, properties);
   }
 
   @Test
@@ -59,6 +74,6 @@ public class TokenRetrieverTest {
     tokenRetriever.retrieveAndSave(wrappedToken);
 
     assertThat(Files.contentOf(tokenFile, Charset.defaultCharset())).isEqualTo("client-token-value");
-
+    verify(shutdown).normally();
   }
 }

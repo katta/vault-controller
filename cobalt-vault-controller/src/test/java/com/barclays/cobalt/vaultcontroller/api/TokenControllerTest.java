@@ -32,7 +32,7 @@ public class TokenControllerTest {
     mvc.perform(post("/token")
         .param("podNamespace", namespace)
         .param("podName", podName))
-        .andExpect(status().isCreated());
+        .andExpect(status().isAccepted());
 
     verify(tokenService).generateTokenForPod(namespace, podName);
   }

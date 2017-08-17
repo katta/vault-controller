@@ -10,6 +10,7 @@ import java.net.URI;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @ConfigurationProperties(prefix = "token-retriever")
@@ -27,6 +28,8 @@ public class ApplicationProperties {
 
   @Valid
   private VaultProperties vault;
+  @Min(10)
+  private int callbackTimeout = 10;
 
 
   public Path tokenPath() {

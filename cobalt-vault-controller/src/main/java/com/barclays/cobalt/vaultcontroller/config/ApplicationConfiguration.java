@@ -1,8 +1,8 @@
 package com.barclays.cobalt.vaultcontroller.config;
 
-import com.barclays.cobalt.vaultcontroller.domain.OpenshiftClient;
-import com.barclays.cobalt.vaultcontroller.domain.PodCallbackClient;
-import com.barclays.cobalt.vaultcontroller.domain.TokenGenerator;
+import com.barclays.cobalt.vaultcontroller.service.OpenshiftClient;
+import com.barclays.cobalt.vaultcontroller.service.PodCallbackClient;
+import com.barclays.cobalt.vaultcontroller.service.TokenGenerator;
 import com.barclays.cobalt.vaultcontroller.service.TokenService;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;

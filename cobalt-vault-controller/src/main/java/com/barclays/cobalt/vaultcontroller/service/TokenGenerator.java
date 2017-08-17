@@ -1,6 +1,8 @@
-package com.barclays.cobalt.vaultcontroller.domain;
+package com.barclays.cobalt.vaultcontroller.service;
 
 import com.barclays.cobalt.vaultcontroller.config.ApplicationProperties.VaultProperties;
+import com.barclays.cobalt.vaultcontroller.domain.VaultTokenRequest;
+import com.barclays.cobalt.vaultcontroller.domain.VaultWrappedResponse;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.web.client.RestTemplate;
 

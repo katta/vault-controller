@@ -1,4 +1,4 @@
-package com.barclays.cobalt.vaultcontroller.domain;
+package com.barclays.cobalt.vaultcontroller.service;
 
 import com.barclays.cobalt.vaultcontroller.config.ApplicationProperties.VaultProperties;
 import org.springframework.http.HttpRequest;
