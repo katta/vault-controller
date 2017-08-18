@@ -74,12 +74,12 @@ spec:
               },
               {
                 "name": "LOG_LEVEL",
-                "value": "debug"
+                "value": "DEBUG"
               }
             ],
             "volumeMounts": [
               {
-                "name": "vault-token",
+                "name": "vault-token-vol",
                 "mountPath": "/var/run/secrets/vaultproject.io"
               }
             ]
@@ -91,6 +91,12 @@ spec:
           image: "vatsakatta/vault-springapp:latest"
           imagePullPolicy: Always
           env:
+          - name: VAULT_HOST
+            value: "vault"
+          - name: VAULT_PORT
+            value: "8200"
+          - name: VAULT_SCHEME
+            value: "http"
           livenessProbe:
             httpGet:
               path: /health
@@ -104,9 +110,9 @@ spec:
             initialDelaySeconds: 60
             periodSeconds: 3
           volumeMounts:
-            - name: vault-token
+            - name: vault-token-vol
               mountPath: "/var/run/secrets/vaultproject.io"
       volumes:
-        - name: vault-token
+        - name: vault-token-vol
           emptyDir:
             medium: Memory

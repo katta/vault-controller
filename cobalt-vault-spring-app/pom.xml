@@ -11,27 +11,11 @@
 
 	<groupId>com.barclays.cobalt</groupId>
 	<artifactId>cobalt-vault-spring-app</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>Cobalt Vault Spring Demo Application</name>
 	<description>Spring application to demonstrate the vault integration</description>
-
-	<properties>
-		<spring-cloud.version>Dalston.SR2</spring-cloud.version>
-	</properties>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${spring-cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 
 	<dependencies>
 		<dependency>
@@ -42,11 +26,14 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.barcalys.cobalt.security</groupId>
+			<artifactId>cobalt-vault-spring-initializer</artifactId>
 		</dependency>
 	</dependencies>
 
