@@ -3,25 +3,20 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.barclays.cobalt</groupId>
+  <parent>
+    <groupId>com.barcalys.cobalt.security</groupId>
+    <artifactId>security-utilities</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
   <artifactId>cobalt-vault-controller</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>Cobalt Vault Controller</name>
   <description>Cobalt Vault Controller</description>
 
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.5.6.RELEASE</version>
-    <relativePath/>
-  </parent>
-
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <java.version>1.8</java.version>
     <openshift-restclient-java.version>5.9.0.Final</openshift-restclient-java.version>
   </properties>
 
@@ -79,6 +74,5 @@
       </plugin>
     </plugins>
   </build>
-
 
 </project>

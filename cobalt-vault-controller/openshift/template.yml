@@ -68,5 +68,5 @@ kind: Secret
 metadata:
   name: vault-controller
 data:
-  vault-token: MTIyNzZjZTMtMDFmMS05MmJlLTczZGQtZmZhYTJiY2JlMjQ2
+  vault-token: YjNhYjQzNmMtMDgxZi1kZmVkLTA4M2YtNjZkZWNiMDBmYThm
 
