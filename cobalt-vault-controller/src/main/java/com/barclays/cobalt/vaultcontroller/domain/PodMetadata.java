@@ -30,6 +30,7 @@ public class PodMetadata {
         .host(pod.getIP())
         .port(initPort)
         .scheme("http")
+        .path("/token")
         .build().toUriString();
   }
 

@@ -22,7 +22,7 @@ public class ApplicationConfiguration {
 
   @Bean
   public OpenshiftClient openshiftClient(ApplicationProperties properties) {
-    return new OpenshiftClient(properties.getOpenshift());
+    return new OpenshiftClient(properties);
   }
 
   @Bean

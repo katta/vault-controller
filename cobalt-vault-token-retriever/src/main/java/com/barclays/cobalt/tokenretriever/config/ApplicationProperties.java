@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-@ConfigurationProperties(prefix = "token-retriever")
+@ConfigurationProperties(prefix = "tokenretriever")
 @Data
 @Validated
 public class ApplicationProperties {

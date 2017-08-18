@@ -1,5 +1,6 @@
 package com.barclays.cobalt.vaultcontroller.service;
 
+import com.barclays.cobalt.vaultcontroller.config.ApplicationProperties;
 import com.barclays.cobalt.vaultcontroller.config.ApplicationProperties.OpenshiftProperties;
 import com.barclays.cobalt.vaultcontroller.domain.PodMetadata;
 import com.openshift.restclient.ClientBuilder;
@@ -13,14 +14,14 @@ import static com.openshift.restclient.ResourceKind.POD;
 public class OpenshiftClient {
 
   private final IClient client;
-  private OpenshiftProperties properties;
+  private ApplicationProperties properties;
 
   private static final Logger LOGGER = LoggerFactory.getLogger(OpenshiftClient.class);
 
-  public OpenshiftClient(final OpenshiftProperties properties) {
-    client = new ClientBuilder(properties.baseUrl())
-        .sslCertCallbackWithDefaultHostnameVerifier(properties.isVerifySslHostName())
-        .usingToken(properties.getAuthToken())
+  public OpenshiftClient(final ApplicationProperties properties) {
+    client = new ClientBuilder(properties.getOpenshift().baseUrl())
+        .sslCertCallbackWithDefaultHostnameVerifier(properties.getOpenshift().isVerifySslHostName())
+        .usingToken(properties.getOpenshift().getAuthToken())
         .build();
     this.properties = properties;
   }

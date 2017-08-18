@@ -18,7 +18,7 @@ public class ApplicationConfiguration {
   public static final Logger logger = LoggerFactory.getLogger(ApplicationConfiguration.class);
 
   @Bean
-  @ConditionalOnProperty(prefix = "token-retriever", value = "token.enabled", havingValue = "true")
+  @ConditionalOnProperty(prefix = "tokenretriever", value = "token.enabled", havingValue = "true")
   public RetrieveTokenTask startupTask(RestTemplateBuilder builder,
                                        ApplicationProperties properties,
                                        ShutdownService shutdownService) {

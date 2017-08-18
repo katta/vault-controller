@@ -20,6 +20,9 @@ public class ApplicationProperties {
   @Valid
   private VaultProperties vault;
 
+  @NotNull
+  @Range(min = 1, max = 65535)
+  private Integer initContainerPort;
 
   @Data
   public static class VaultProperties {
@@ -30,7 +33,7 @@ public class ApplicationProperties {
     private String scheme = "https";
     private String version = "v1";
     @NotNull
-      private String rootToken;
+    private String rootToken;
     @NotNull
     private Long wrapTtlInSeconds;
 
@@ -61,9 +64,6 @@ public class ApplicationProperties {
     private String authToken;
     private String scheme = "https";
     private boolean verifySslHostName = false;
-    @NotNull
-    @Range(min = 1, max = 65535)
-    private Integer initContainerPort;
 
     public String baseUrl() {
       return UriComponentsBuilder.newInstance()
