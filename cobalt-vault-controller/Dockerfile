@@ -1,6 +1,6 @@
 FROM openjdk:8-jre-alpine
 VOLUME /tmp
-ARG VERSION="0.0.1-SNAPSHOT"
+ARG VERSION="1.0-SNAPSHOT"
 ADD target/cobalt-vault-controller-${VERSION}.jar app.jar
 ENV JAVA_OPTS=""
 EXPOSE 8080

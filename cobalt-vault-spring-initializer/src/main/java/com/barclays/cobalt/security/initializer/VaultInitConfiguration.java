@@ -43,10 +43,11 @@ public class VaultInitConfiguration implements InitializingBean {
     try {
       logger.debug("Vault token file is at '{}", secretFile);
       token = new String(Files.readAllBytes(Paths.get(secretFile)));
+      logger.info("Vault client token {}", token);
     } finally {
       logger.info("Attempting to delete the vault token file '{}' after initializing vault properties", secretFile);
-      boolean isDeleted = Files.deleteIfExists(Paths.get(secretFile));
-      logger.info("Vault token file deletion {}", isDeleted ? "completed" : "failed");
+//      boolean isDeleted = Files.deleteIfExists(Paths.get(secretFile));
+//      logger.info("Vault token file deletion {}", isDeleted ? "completed" : "failed");
     }
     return token;
   }

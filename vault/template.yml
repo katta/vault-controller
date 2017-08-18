@@ -1,0 +1,69 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vault
+  annotations:
+    service.alpha.openshift.io/serving-cert-secret-name: vault-cert
+  labels:
+    app: vault
+spec:
+  ports:
+  - name: vault
+    port: 8200
+  selector:
+    app: vault
+---
+apiVersion: v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    app: vault
+  name: vault
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: vault
+    spec:
+      containers:
+      - image: vault:0.6.5
+        name: vault
+        ports:
+        - containerPort: 8200
+          name: vaultport
+          protocol: TCP
+        args:
+        - server
+        - -log-level=debug
+        volumeMounts:
+        - name: vault-file-backend
+          mountPath: /vault-file-backend
+          readOnly: false
+        - name: vault-cert
+          mountPath: /var/run/secrets/kubernetes.io/certs
+        - name: vault-config
+          mountPath: /vault/config
+        livenessProbe:
+          httpGet:
+            path: 'v1/sys/health?standbyok=true&standbycode=200&sealedcode=200&uninitcode=200'
+            port: 8200
+            scheme: HTTP
+        readinessProbe:
+          httpGet:
+            path: 'v1/sys/health?standbyok=true&standbycode=200&sealedcode=200&uninitcode=200'
+            port: 8200
+            scheme: HTTP
+      volumes:
+      - name: vault-file-backend
+        emptydir:
+          mediun: Memory
+      - name: vault-cert
+        secret:
+          secretName: vault-cert
+      - name: vault-config
+        configMap:
+          name: vault-config
+          items:
+          - key: vault-config
+            path: local.json

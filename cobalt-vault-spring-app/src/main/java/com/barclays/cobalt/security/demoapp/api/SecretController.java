@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SecretController {
 
-  @Value("password")
+  @Value("${password}")
   private String password;
 
   @GetMapping

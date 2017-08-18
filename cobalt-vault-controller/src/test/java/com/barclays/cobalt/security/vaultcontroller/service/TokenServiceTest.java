@@ -2,7 +2,6 @@ package com.barclays.cobalt.security.vaultcontroller.service;
 
 import com.barclays.cobalt.security.vaultcontroller.domain.PodMetadata;
 import com.barclays.cobalt.security.vaultcontroller.domain.VaultWrappedResponse;
-import com.barclays.cobalt.vaultcontroller.domain.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

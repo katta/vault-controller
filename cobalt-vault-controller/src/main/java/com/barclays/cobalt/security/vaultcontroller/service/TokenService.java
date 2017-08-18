@@ -2,7 +2,6 @@ package com.barclays.cobalt.security.vaultcontroller.service;
 
 import com.barclays.cobalt.security.vaultcontroller.domain.PodMetadata;
 import com.barclays.cobalt.security.vaultcontroller.domain.VaultWrappedResponse;
-import com.barclays.cobalt.vaultcontroller.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
