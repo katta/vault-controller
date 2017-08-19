@@ -1,7 +1,7 @@
 spring.cloud.vault:
   host: ${vault.host:localhost}
   port: ${vault.port:8200}
-  scheme: ${vault.scheme:https}
+  scheme: ${vault.scheme:http}
   authentication: TOKEN
   token: placeholder
   config:

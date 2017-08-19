@@ -10,6 +10,7 @@ import org.springframework.cloud.vault.config.VaultBootstrapConfiguration;
 import org.springframework.cloud.vault.config.VaultProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.core.annotation.Order;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,6 +19,7 @@ import java.nio.file.Paths;
 @Configuration
 @EnableConfigurationProperties({VaultProperties.class})
 @AutoConfigureBefore({VaultBootstrapConfiguration.class})
+@Order(100)
 @Lazy(false)
 public class VaultInitConfiguration implements InitializingBean {
 
@@ -41,8 +43,10 @@ public class VaultInitConfiguration implements InitializingBean {
   private String vaultToken() throws IOException {
     String token;
     try {
-      logger.debug("Vault token file is at '{}", secretFile);
-      token = new String(Files.readAllBytes(Paths.get(secretFile)));
+      logger.info("Vault token file is at '{}", secretFile);
+      token = new String(Files.readAllBytes(Paths.get(secretFile)))
+          .replaceAll("(?:\\n|\\r)", "");
+
       logger.info("Vault client token {}", token);
     } finally {
       logger.info("Attempting to delete the vault token file '{}' after initializing vault properties", secretFile);
