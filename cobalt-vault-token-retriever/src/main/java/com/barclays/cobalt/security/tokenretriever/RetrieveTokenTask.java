@@ -36,7 +36,7 @@ public class RetrieveTokenTask implements CommandLineRunner {
     ResponseEntity<Object> status = http.postForEntity(tokenEndpoint, null, Object.class);
     HttpStatus statusCode = status.getStatusCode();
     if (statusCode.is2xxSuccessful()) {
-      shutdownService.initiateDelayedShutdown();
+      shutdownService.delayed();
     } else {
       logger.error("Failed to initiate request to generate secrets token." +
           " Controller returned http code: {}. Initiating shutdown.", statusCode);

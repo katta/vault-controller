@@ -77,7 +77,7 @@ public class VaultTokenRequest {
 
       return new VaultTokenRequest(UUID.randomUUID().toString(), policies, meta, true,
           false, false, ttlInSeconds + "s",
-          ttlInSeconds + "s", displayName, 10);
+          ttlInSeconds + "s", displayName, 1);
     }
   }
 }

@@ -39,8 +39,8 @@ public class TokenGeneratorTest {
   @Test
   public void shouldGeneratedWrappedResponseForTokenCreationInVault() {
     server.expect(requestTo("http://localhost:8200/v1/auth/token/create"))
-          .andExpect(header(VaultHttpRequestInterceptor.TOKEN_HEADER, "change-me"))
-          .andExpect(header(VaultHttpRequestInterceptor.WRAP_RESPONSE_TTL_HEADER, "60s"))
+          .andExpect(header(TokenGenerator.TOKEN_HEADER, "change-me"))
+          .andExpect(header(TokenGenerator.WRAP_RESPONSE_TTL_HEADER, "3600s"))
           .andExpect(jsonPath("policies").value(hasItems("non-default-policy")))
           .andRespond(withSuccess());
 

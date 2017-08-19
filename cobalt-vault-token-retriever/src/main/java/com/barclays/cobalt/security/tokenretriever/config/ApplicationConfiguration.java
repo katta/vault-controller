@@ -1,8 +1,9 @@
 package com.barclays.cobalt.security.tokenretriever.config;
 
+import com.barclays.cobalt.security.tokenretriever.RetrieveTokenTask;
+import com.barclays.cobalt.security.tokenretriever.service.ShutdownListener;
 import com.barclays.cobalt.security.tokenretriever.service.ShutdownService;
 import com.barclays.cobalt.security.tokenretriever.service.TokenService;
-import com.barclays.cobalt.security.tokenretriever.RetrieveTokenTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -11,6 +12,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Timer;
 
 @Configuration
 public class ApplicationConfiguration {
@@ -38,6 +41,12 @@ public class ApplicationConfiguration {
 
   @Bean
   public ShutdownService shutdownService(ApplicationContext context, ApplicationProperties properties) {
-    return new ShutdownService(context, properties.getCallbackTimeout());
+    return new ShutdownService(context, properties.getCallbackTimeout(), new Timer("shutdown-timer"));
+  }
+
+  @Bean
+
+  public ShutdownListener shutdownListener() {
+    return new ShutdownListener();
   }
 }

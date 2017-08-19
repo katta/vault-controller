@@ -5,8 +5,9 @@
 
 	<parent>
 		<groupId>com.barcalys.cobalt.security</groupId>
-		<artifactId>security-utilities</artifactId>
+		<artifactId>cobalt-vault-security-utilities</artifactId>
 		<version>1.0-SNAPSHOT</version>
+		<relativePath>../</relativePath>
 	</parent>
 
 	<groupId>com.barclays.cobalt</groupId>
@@ -35,7 +36,17 @@
 			<groupId>com.barcalys.cobalt.security</groupId>
 			<artifactId>cobalt-vault-spring-initializer</artifactId>
 		</dependency>
-	</dependencies>
+    <dependency>
+      <groupId>org.jetbrains</groupId>
+      <artifactId>annotations</artifactId>
+      <version>13.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains</groupId>
+      <artifactId>annotations</artifactId>
+      <version>13.0</version>
+    </dependency>
+  </dependencies>
 
 	<build>
 		<plugins>

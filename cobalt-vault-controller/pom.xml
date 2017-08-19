@@ -5,8 +5,9 @@
 
   <parent>
     <groupId>com.barcalys.cobalt.security</groupId>
-    <artifactId>security-utilities</artifactId>
+    <artifactId>cobalt-vault-security-utilities</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <relativePath>../</relativePath>
   </parent>
 
   <artifactId>cobalt-vault-controller</artifactId>

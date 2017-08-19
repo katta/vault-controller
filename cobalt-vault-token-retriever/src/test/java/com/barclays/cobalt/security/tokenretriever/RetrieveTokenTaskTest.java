@@ -38,7 +38,7 @@ public class RetrieveTokenTaskTest {
 
     task.run();
 
-    verify(shutdown).initiateDelayedShutdown();
+    verify(shutdown).delayed();
   }
 
   @Test

@@ -10,12 +10,12 @@
   </parent>
 
   <groupId>com.barcalys.cobalt.security</groupId>
-  <artifactId>security-utilities</artifactId>
+  <artifactId>cobalt-vault-security-utilities</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>Cobalt Security Utilities</name>
-  <description>Cobalt Security Utilities</description>
+  <name>Cobalt Security Utilities to integrate Openshift and Hashicorp Vault</name>
+  <description>Cobalt Security Utilities to integrate Openshift and Hashicorp Vault</description>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
