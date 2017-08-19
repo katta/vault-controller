@@ -1,28 +1,37 @@
 package com.barclays.cobalt.security.vaultcontroller.api;
 
 import com.barclays.cobalt.security.vaultcontroller.service.TokenService;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
-@WebMvcTest(TokenController.class)
+@RunWith(MockitoJUnitRunner.class)
 public class TokenControllerTest {
 
-  @Autowired
   private MockMvc mvc;
 
-  @MockBean
+  @Mock
   private TokenService tokenService;
+
+  @InjectMocks
+  private TokenController controller;
+
+  @Before
+  public void setUp() throws Exception {
+    mvc = MockMvcBuilders
+        .standaloneSetup(controller)
+        .build();
+  }
 
   @Test
   public void shouldGenerateToken() throws Exception {
