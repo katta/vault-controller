@@ -56,7 +56,7 @@ public class TokenServiceTest {
   @Before
   public void setUp() throws Exception {
     tokenFile = Files.newTemporaryFile();
-    given(properties.tokenPath()).willReturn(Paths.get(tokenFile.toURI()));
+    given(properties.tokenFilePath()).willReturn(Paths.get(tokenFile.toURI()));
     given(properties.getVault().unwrapEndpoint()).willReturn(UNWRAP_ENDPOINT);
     tokenRetriever = new TokenService(builder, shutdown, properties);
   }

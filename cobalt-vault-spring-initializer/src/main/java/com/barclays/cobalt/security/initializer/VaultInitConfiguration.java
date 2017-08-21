@@ -5,28 +5,34 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.vault.config.VaultBootstrapConfiguration;
 import org.springframework.cloud.vault.config.VaultProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.annotation.Order;
+import org.springframework.core.io.Resource;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import static org.springframework.core.Ordered.HIGHEST_PRECEDENCE;
 
 @Configuration
 @EnableConfigurationProperties({VaultProperties.class})
-@AutoConfigureBefore({VaultBootstrapConfiguration.class})
-@Order(100)
+@AutoConfigureBefore(VaultBootstrapConfiguration.class)
+@Order(HIGHEST_PRECEDENCE)
 @Lazy(false)
+@ConditionalOnProperty(value = "spring.cloud.vault.enabled", havingValue = "true")
 public class VaultInitConfiguration implements InitializingBean {
 
   private static final Logger logger = LoggerFactory.getLogger(VaultInitConfiguration.class);
 
-  @Value("${vault.token.file:/var/run/secrets/vaultproject.io/token}")
-  private String secretFile;
+  @Value("${vault.token.file:file:///var/run/secrets/vaultproject.io/token}")
+  private Resource secretFile;
 
   private VaultProperties vaultProperties;
 
@@ -36,23 +42,18 @@ public class VaultInitConfiguration implements InitializingBean {
 
   @Override
   public void afterPropertiesSet() throws Exception {
-    logger.debug("Vault token is being set to vault properties in afterPropertiesSet ");
-    vaultProperties.setToken(vaultToken());
+    String token = readTokenFromFile();
+    logger.info("Read vault token with value '{}' from path '{}'", token, secretFile);
+    vaultProperties.setToken(token);
   }
 
-  private String vaultToken() throws IOException {
-    String token;
-    try {
-      logger.info("Vault token file is at '{}", secretFile);
-      token = new String(Files.readAllBytes(Paths.get(secretFile)))
-          .replaceAll("(?:\\n|\\r)", "");
-
-      logger.info("Vault client token {}", token);
-    } finally {
-      logger.info("Attempting to delete the vault token file '{}' after initializing vault properties", secretFile);
-//      boolean isDeleted = Files.deleteIfExists(Paths.get(secretFile));
-//      logger.info("Vault token file deletion {}", isDeleted ? "completed" : "failed");
+  private String readTokenFromFile() throws IOException {
+    logger.info("Reading vault token file at '{}", secretFile);
+    Path tokenFile = Paths.get(secretFile.getURI());
+    if (!Files.isReadable(tokenFile)) {
+      logger.error("Unable to read token file from location '{}'", tokenFile);
+      throw new IllegalStateException("Unable to read token file at location: " + secretFile);
     }
-    return token;
+    return new String(Files.readAllBytes(tokenFile)).replaceAll("(?:[\\n\\r])", "");
   }
 }

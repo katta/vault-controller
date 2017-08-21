@@ -7,14 +7,12 @@ import lombok.ToString;
 
 @Data
 @AllArgsConstructor
-@Builder
 public class VaultWrappedResponse {
 
   private WrapInfo wrapInfo;
 
   @Data
   @AllArgsConstructor
-  @Builder
   public static class WrapInfo {
 
     private String token;

@@ -9,8 +9,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.net.URI;
 
-@ConfigurationProperties(prefix = "vaultcontroller")
+@ConfigurationProperties(prefix = "application")
 @Data
 @Validated
 public class ApplicationProperties {
@@ -27,12 +28,9 @@ public class ApplicationProperties {
   @Data
   public static class VaultProperties {
     @NotNull
-    private String host;
-    @NotNull
-    private Integer port;
-    private String scheme = "https";
+    private URI baseUri;
     private String version = "v1";
-    @NotNull
+    @NotBlank
     private String rootToken;
     @NotNull
     private Long wrapTtlInSeconds;
@@ -40,9 +38,7 @@ public class ApplicationProperties {
 
     public String tokenEndpoint() {
       return UriComponentsBuilder.newInstance()
-          .host(host)
-          .port(port)
-          .scheme(scheme)
+          .uri(baseUri)
           .path(version)
           .path("/auth/token/create")
           .build().toUriString();
@@ -55,21 +51,15 @@ public class ApplicationProperties {
 
   @Data
   public static class OpenshiftProperties {
-    @NotBlank
-    private String host;
     @NotNull
-    @Range(min = 1, max = 65535)
-    private Integer port;
+    private URI baseUri;
     @NotBlank
     private String authToken;
-    private String scheme = "https";
     private boolean verifySslHostName = false;
 
-    public String baseUrl() {
+    public String baseUri() {
       return UriComponentsBuilder.newInstance()
-          .host(host)
-          .port(port)
-          .scheme(scheme)
+          .uri(baseUri)
           .build().toUriString();
     }
   }

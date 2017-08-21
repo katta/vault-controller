@@ -14,7 +14,7 @@ import static java.util.stream.Collectors.toSet;
 @Data
 @AllArgsConstructor
 public class PodMetadata {
-  public static final String VAULT_CONTROLLER_POLICY_KEY = "vault-controller/policies";
+  public static final String VAULT_CONTROLLER_POLICY_KEY = "vaultproject.io/policies";
   public static final String INIT_PORT_NAME = "init-port";
   private final String podName;
   private final String namespace;

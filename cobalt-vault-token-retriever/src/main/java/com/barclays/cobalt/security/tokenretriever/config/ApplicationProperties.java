@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-@ConfigurationProperties(prefix = "tokenretriever")
+@ConfigurationProperties(prefix = "application")
 @Data
 @Validated
 public class ApplicationProperties {
@@ -24,33 +24,28 @@ public class ApplicationProperties {
   @NotBlank
   private String podName;
   @NotBlank
-  private String tokenPath;
+  private String tokenFilePath;
 
   @Valid
   private VaultProperties vault;
   @Min(10)
-  private int callbackTimeout = 10;
+  private int callbackTimeout = 60;
 
 
-  public Path tokenPath() {
-    return Paths.get(tokenPath);
+  public Path tokenFilePath() {
+    return Paths.get(tokenFilePath);
   }
 
   @Data
   public static class VaultProperties {
     @NotNull
-    private String host;
-    @NotNull
-    private Integer port;
-    private String scheme = "https";
+    private URI baseUri;
     private String version = "v1";
 
 
     public URI unwrapEndpoint() {
       return UriComponentsBuilder.newInstance()
-          .host(host)
-          .port(port)
-          .scheme(scheme)
+          .uri(baseUri)
           .path(version)
           .path("/sys/wrapping/unwrap")
           .build().toUri();

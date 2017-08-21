@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.5.6.RELEASE</version>
+    <version>1.5.2.RELEASE</version>
     <relativePath/>
   </parent>
 
@@ -14,7 +14,7 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>Cobalt Security Utilities to integrate Openshift and Hashicorp Vault</name>
+  <name>Cobalt Security Utilities</name>
   <description>Cobalt Security Utilities to integrate Openshift and Hashicorp Vault</description>
 
   <properties>

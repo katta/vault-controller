@@ -16,13 +16,13 @@ public class TokenService {
   public static final String VAULT_TOKEN_HEADER = "X-Vault-Token";
   private final RestTemplate http;
   private final URI unwrapEndpoint;
-  private Path tokenPath;
+  private Path tokenFilePath;
   private ShutdownService shutdown;
 
   public TokenService(RestTemplateBuilder builder, ShutdownService shutdown, ApplicationProperties properties) {
     http = builder.build();
     this.unwrapEndpoint = properties.getVault().unwrapEndpoint();
-    this.tokenPath = properties.tokenPath();
+    this.tokenFilePath = properties.tokenFilePath();
     this.shutdown = shutdown;
   }
 
@@ -44,7 +44,7 @@ public class TokenService {
   }
 
   private void saveToken(String token) {
-    FileUtil.writeSafely(token, tokenPath);
+    FileUtil.writeSafely(token, tokenFilePath);
   }
 
 }
