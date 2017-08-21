@@ -33,7 +33,7 @@ public class TokenGeneratorTest {
 
   @Before
   public void setUp() throws Exception {
-    tokenGenerator = new TokenGenerator(builder, properties.getVault());
+    tokenGenerator = new TokenGenerator(builder.build(), properties.getVault());
   }
 
   @Test

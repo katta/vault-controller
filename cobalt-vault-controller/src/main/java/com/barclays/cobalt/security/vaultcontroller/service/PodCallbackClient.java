@@ -13,8 +13,8 @@ public class PodCallbackClient {
 
   private final RestTemplate http;
 
-  public PodCallbackClient(RestTemplateBuilder builder) {
-    http = builder.build();
+  public PodCallbackClient(RestTemplate restTemplate) {
+    http = restTemplate;
   }
 
   public void writeToken(String uri, VaultWrappedResponse.WrapInfo wrapInfo) {

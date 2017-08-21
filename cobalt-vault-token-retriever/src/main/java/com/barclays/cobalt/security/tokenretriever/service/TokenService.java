@@ -3,7 +3,6 @@ package com.barclays.cobalt.security.tokenretriever.service;
 import com.barclays.cobalt.security.tokenretriever.config.ApplicationProperties;
 import com.barclays.cobalt.security.tokenretriever.domain.TokenResponse;
 import com.barclays.cobalt.security.tokenretriever.util.FileUtil;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.RequestEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.client.RestTemplate;
@@ -19,8 +18,8 @@ public class TokenService {
   private Path tokenFilePath;
   private ShutdownService shutdown;
 
-  public TokenService(RestTemplateBuilder builder, ShutdownService shutdown, ApplicationProperties properties) {
-    http = builder.build();
+  public TokenService(RestTemplate restTemplate, ShutdownService shutdown, ApplicationProperties properties) {
+    http = restTemplate;
     this.unwrapEndpoint = properties.getVault().unwrapEndpoint();
     this.tokenFilePath = properties.tokenFilePath();
     this.shutdown = shutdown;

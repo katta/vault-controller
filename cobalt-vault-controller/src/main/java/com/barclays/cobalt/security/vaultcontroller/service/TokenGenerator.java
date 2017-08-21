@@ -3,7 +3,6 @@ package com.barclays.cobalt.security.vaultcontroller.service;
 import com.barclays.cobalt.security.vaultcontroller.config.ApplicationProperties.VaultProperties;
 import com.barclays.cobalt.security.vaultcontroller.domain.VaultTokenRequest;
 import com.barclays.cobalt.security.vaultcontroller.domain.VaultWrappedResponse;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestTemplate;
@@ -17,8 +16,8 @@ public class TokenGenerator {
   private final RestTemplate http;
   private final VaultProperties configuration;
 
-  public TokenGenerator(RestTemplateBuilder builder, VaultProperties configuration) {
-    this.http = builder.build();
+  public TokenGenerator(RestTemplate restTemplate, VaultProperties configuration) {
+    this.http = restTemplate;
     this.configuration = configuration;
   }
 

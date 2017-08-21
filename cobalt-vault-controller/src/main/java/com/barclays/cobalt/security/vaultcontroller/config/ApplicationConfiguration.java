@@ -12,12 +12,12 @@ import org.springframework.context.annotation.Configuration;
 public class ApplicationConfiguration {
   @Bean
   public TokenGenerator tokenGenerator(RestTemplateBuilder builder, ApplicationProperties properties) {
-    return new TokenGenerator(builder, properties.getVault());
+    return new TokenGenerator(builder.build(), properties.getVault());
   }
 
   @Bean
   public PodCallbackClient podCallbackClient(RestTemplateBuilder builder) {
-    return new PodCallbackClient(builder);
+    return new PodCallbackClient(builder.build());
   }
 
   @Bean

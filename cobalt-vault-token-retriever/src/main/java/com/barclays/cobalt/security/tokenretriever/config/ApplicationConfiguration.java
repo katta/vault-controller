@@ -36,7 +36,7 @@ public class ApplicationConfiguration {
   @Bean
   public TokenService tokenService(RestTemplateBuilder builder, ShutdownService shutdown,
                                    ApplicationProperties properties) {
-    return new TokenService(builder, shutdown, properties);
+    return new TokenService(builder.build(), shutdown, properties);
   }
 
   @Bean

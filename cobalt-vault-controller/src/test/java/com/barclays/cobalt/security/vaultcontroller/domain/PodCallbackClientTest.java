@@ -30,7 +30,7 @@ public class PodCallbackClientTest {
 
   @Before
   public void setUp() throws Exception {
-    podCallbackClient = new PodCallbackClient(builder);
+    podCallbackClient = new PodCallbackClient(builder.build());
   }
 
   @Test
