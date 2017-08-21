@@ -25,6 +25,7 @@ spec:
       labels:
         app: vault-controller
     spec:
+      serviceAccountName: deployer
       containers:
       - name: vault-controller
         image: "vatsakatta/vault-controller:latest"
@@ -43,10 +44,6 @@ spec:
           value: "http://vault:8200"
         - name: APPLICATION_OPENSHIFT_BASEURI
           value: "https://openshift.default.svc.cluster.local:443"
-        - name: APPLICATION_OPENSHIFT_AUTHTOKEN
-          value: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJ2YXVsdC1jb250cm9sbGVyIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImRlcGxveWVyLXRva2VuLTN6cHhqIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImRlcGxveWVyIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiMTJkMDI3MWMtODM3Zi0xMWU3LWFhYTMtYmUyZjRlYzkwZjI5Iiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50OnZhdWx0LWNvbnRyb2xsZXI6ZGVwbG95ZXIifQ.l-2bdiPvcTnFO4vS0wQkJMaPIfyUV7QOkknPcMm9-DaZLezkptHHgpGyZG-I5783JPCwaV0Q0405izlXKH7-GQ53m3QGEvy3f2-dPdxgZyaB9qBCZgx2qno1WXC11gXrWxXjsi6agPTg9DJ7vTMNWydwWa3-7O8G_SueO7yuexj6NtXAwLUEcC6TUVmtx8cct5M21G-gi0MEadbETwCS96ccuLvSN39il3Gk8_zy9HZNkBuyPxQAb5k1VCPcVO1ESDhGtb4PoV99Gv7G4dSBdeZ9Fh0x9YKIisiGcSV4Ci0G2UiSA0b_vV7bweFAPGSp70P24yPE1tWc2bene-Zh0g"
-        - name: APPLICATION_INITCONTAINERPORT
-          value: "8443"
         volumeMounts:
         - name: vault-controller-cert
           mountPath: /var/run/secrets/kubernetes.io/certs

@@ -28,7 +28,7 @@ public class ApplicationProperties {
 
   @NotNull
   @Range(min = 1, max = 65535)
-  private Integer initContainerPort;
+  private Integer initContainerPort = 8443;
 
   @Data
   public static class VaultProperties {
