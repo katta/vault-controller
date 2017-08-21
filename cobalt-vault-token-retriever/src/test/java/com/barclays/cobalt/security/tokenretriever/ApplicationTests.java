@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestPropertySource(properties = {
-    "application.token.retreival.enabled=false"
+    "application.token.retrieval.enabled=false"
 })
 public class ApplicationTests {
 

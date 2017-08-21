@@ -18,10 +18,13 @@ public class OpenshiftClient {
   private static final Logger LOGGER = LoggerFactory.getLogger(OpenshiftClient.class);
 
   public OpenshiftClient(final ApplicationProperties properties) {
-    client = new ClientBuilder(properties.getOpenshift().baseUri())
-        .sslCertCallbackWithDefaultHostnameVerifier(properties.getOpenshift().isVerifySslHostName())
-        .usingToken(properties.getOpenshift().getAuthToken())
+    ApplicationProperties.OpenshiftProperties openshift = properties.getOpenshift();
+
+    client = new ClientBuilder(openshift.baseUri())
+        .sslCertCallbackWithDefaultHostnameVerifier(openshift.isVerifySslHostName())
+        .usingToken(openshift.authToken())
         .build();
+
     this.properties = properties;
   }
 

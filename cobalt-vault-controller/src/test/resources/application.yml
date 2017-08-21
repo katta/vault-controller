@@ -1,0 +1,3 @@
+application:
+  openshift:
+    authTokenFile: classpath:/test-ose-token
