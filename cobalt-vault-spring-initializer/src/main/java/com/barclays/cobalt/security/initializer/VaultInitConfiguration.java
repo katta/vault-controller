@@ -43,7 +43,7 @@ public class VaultInitConfiguration implements InitializingBean {
   @Override
   public void afterPropertiesSet() throws Exception {
     String token = readTokenFromFile();
-    logger.info("Read vault token with value '{}' from path '{}'", token, secretFile);
+    logger.debug("Read vault token with value '{}' from path '{}'", token, secretFile);
     vaultProperties.setToken(token);
   }
 
